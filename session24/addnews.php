@@ -46,28 +46,23 @@
    <?php
 
       include 'connect.php';
-    $errProductName = '';
-    $errPrice = '';
-    $errDescript = '';
+    $errContent = '';
+    $errTitle = '';
     $errImage = '';
    
-    // Khoi tao gia tri ban dau
-    $productname = '';
-    $price = '';
-    $productdescript = '';
+   $content='';
+   $title='';
+    
 
    
     if (isset($_POST['add'])) {
-      $productname    = $_POST['productname'];
-      $price  = $_POST['price'];
-      $productdescript   = $_POST['productdescript'];
+      $content   = $_POST['content'];
+      $title   = $_POST['title'];
 
-      if ($productname == '') {
-        $errProductName = 'Bạn chưa nhập tên sản phẩm';
-      }elseif ($price == '') {
-        $errPrice = 'Bạn chưa nhập giá';
-      }elseif ($productdescript == '') {
-        $errDescript = 'Bạn chưa nhập mô tả';
+      if ($title == '') {
+        $errTitle = 'Bạn chưa nhập tiêu đề';
+      }elseif ($content == '') {
+        $errContent = 'Bạn chưa nhập nội dung';
       }elseif (!isset($_FILES['Image'])) {
         $errImage ='Bạn chưa chọn hình ảnh';
       }
@@ -77,13 +72,13 @@
         $new_path="image/".$file_name;
         $uploaded_file=move_uploaded_file($file_path,$new_path);
         $date= date('Y/m/d ');
-          $sql="INSERT INTO product(ProductName, Price, Descript, Image, CreateAt) VALUES ('$productname','$price','$productdescript','$new_path','$date' )";
+          $sql="INSERT INTO news(title, content,image, createat) VALUES ('$title','$content','$new_path','$date' )";
           $kq=mysqli_query($connect, $sql);
           if ($kq) {
-            echo "<script>alert('Thêm thành công');window.location='listproduct.php';</script>";
+            echo "<script>alert('Thêm thành công');window.location='listnews.php';</script>";
           }
           else{
-            echo "<script>alert('Thêm thất bại');window.location='addproduct.php';</script>";
+            echo "<script>alert('Thêm thất bại');window.location='addnews.php';</script>";
           }
       }
       
@@ -113,31 +108,27 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Thêm Sản Phẩm</h3>
+              <h3 class="box-title">Thêm Tin Tức</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
             <form  method="POST" enctype="multipart/form-data" action="#">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="exampleInputNameProduct1">Tên Sản Phẩm</label>
-                  <input type="text" class="form-control" id="exampleInputNameProduct1" placeholder="Tên Sản Phẩm" name="productname" value="<?php echo $productname;?>">
-                  <p class="error"><?php echo $errProductName;?></p>
+                  <label for="exampleInputNameProduct1">Tiêu đề</label>
+                  <input type="text" class="form-control" id="exampleInputTitle" placeholder="Tiêu đề" name="title" value="<?php echo $title;?>">
+                  <p class="error"><?php echo $errTitle;?></p>
                 </div>
+                
                 <div class="form-group">
-                  <label for="exampleInputPrice1">Giá</label>
-                  <input type="text" class="form-control" id="exampleInputPrice1" placeholder="Giá......" onKeyPress="return isNumberKey(event)" name="price" value="<?php echo $price;?>">
-                  <p class="error"><?php echo $errPrice;?></p>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputDescription1">Mô Tả</label>
-                  <textarea class="form-control" id="exampleInputDescription1" placeholder="Mô Tả" rows="5" name="productdescript" ><?php echo $productdescript;?></textarea>
-                  <p class="error"><?php echo $errDescript;?></p>
+                  <label for="exampleInputDescription1">Nội dung</label>
+                  <textarea class="form-control" id="exampleInputContent" placeholder="Nội Dung" rows="5" name="content" ><?php echo $content;?></textarea>
+                  <p class="error"><?php echo $errContent;?></p>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputFile">File Image</label>
                   <input type="file" id="exampleInputFile" name="Image"  >
-                  
+                  <p class="error"><?php echo $errImage;?></p>
                 </div>
                 
               </div>

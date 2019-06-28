@@ -40,6 +40,20 @@
            
           </ul>
         </li>
+        <li class="treeview active">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>News</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="listnews.php"><i class="fa fa-circle-o"></i> List</a></li>
+            <li><a href="addnews.php"><i class="fa fa-circle-o"></i> Add</a></li>
+           
+          </ul>
+        </li>
+       
        
        
         
