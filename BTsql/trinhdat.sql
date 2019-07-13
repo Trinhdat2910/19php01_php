@@ -18,7 +18,7 @@ SELECT * FROM products
 INNER JOIN orderitems ON products.productID = orderitems.productID  
 INNER JOIN orders ON orderitems.orderID =orders.orderID  
 INNER JOIN customers ON orders.customerID = customers.customerID 
-WHERE customers.emailAddress LIKE '%gmail%'
+WHERE customers.emailAddress LIKE '%@gmail%'
 -- câu 5: Lấy ra danh sách sản phẩm có giá lơn hơn 300, đăng năm 2014, giới hạn lấy 4 sản phẩm và sắp xếp theo giảm giá giảm dần
 SELECT * FROM `products` 
 WHERE listPrice > 300 AND dateAdded LIKE '2014-%-%' 
@@ -26,7 +26,7 @@ ORDER BY listPrice DESC
 LIMIT 4
 -- câu 6: Lấy ra tên thành phố mà khách hàng đã mua sản phẩm "Yamaha FG700S
 SELECT city, productName FROM addresses
-INNER JOIN customers ON addresses.addressID = customers.shipAddressID  
+INNER JOIN customers ON addresses.customerID = customers.customerID
 INNER JOIN orders ON customers.customerID =orders.customerID  
 INNER JOIN orderitems ON orders.orderID = orderitems.orderID
 INNER JOIN products ON orderitems.productID = products.productID
