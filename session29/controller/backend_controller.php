@@ -27,7 +27,11 @@
 					$model = new BackendModel();
 					$this->handleProduct($action, $model);
 					break;
-				
+				case 'comment':
+					# code...
+					$model = new BackendModel();
+					$this->handleComment($action, $model);
+					break;
 				default:
 					# code...
 					break;
@@ -156,6 +160,36 @@
 					break;
 				default:
 
+				break;
+			}
+		}
+		function handleComment($action, $model) 
+		{
+			switch ($action) {
+				case 'list_comment':
+					$listComment = $model->listComment();
+					include 'view/comment/list_comment.php';
+					break;
+				case 'show_comment':
+					$id = $_GET['id'];
+					if($model->showComment($id) === TRUE){
+								header("Location: admin.php?controller=comment&action=list_comment");
+							}
+					break;
+				case 'hide_comment':
+					$id = $_GET['id'];
+					if($model->hideComment($id) === TRUE){
+								header("Location: admin.php?controller=comment&action=list_comment");
+							}
+					break;
+				case 'delete_comment':
+					$id = $_GET['id'];
+					if($model->deleteComment($id) === TRUE){
+								header("Location: admin.php?controller=comment&action=list_comment");
+							}
+					break;
+
+				default:
 				break;
 			}
 		}

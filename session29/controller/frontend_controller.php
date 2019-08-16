@@ -15,9 +15,8 @@
 			switch ($controller) {
 
 				case 'home':
-					$model = new FrontendModel();
-					$listProduct = $model->listProduct();
-					include 'view/home/contentHome.php';	
+						$model = new FrontendModel();
+						$this->handleHome($action, $model);
 					break;
 				
 				case 'user':
@@ -25,9 +24,10 @@
 					$model = new FrontendModel();
 					$this->handleUser($action, $model);
 					break;
-				case 'product':
+				case 'comment':
 					# code...
-					// $this->handleProduct($action, $model);
+					$model = new FrontendModel();
+					$this->handleComment($action, $model);
 					break;
 				
 				default:
@@ -56,7 +56,12 @@
 							$model = new FrontendModel();
 							if ($model->register( $username, $password, $name, $email, $phone, $birthday, $avatar) === TRUE) {
 								// Dang nhap luon, sau khi dang ky thanh cong
-								$_SESSION['login'] = $username;
+								$getLogin= $checkLogin->fetch_assoc();
+								$login['name']=$getLogin['name'];
+								$login['role']=$getLogin['role'];
+								$login['image']=$getLogin['avatar'];
+								$login['username']=$username;
+								$_SESSION['login'] = $login;
 								header("Location: index.php");
 							}
 					}
@@ -70,6 +75,12 @@
 					$password = md5($_POST['password']);
 					$checkLogin = $model->checkLogin($username, $password);
 					if($checkLogin -> num_rows > 0){
+						$getLogin= $checkLogin->fetch_assoc();
+						$login['name']=$getLogin['name'];
+						$login['role']=$getLogin['role'];
+						$login['image']=$getLogin['avatar'];
+						$login['id']=$getLogin['id'];
+						$login['username']=$username;
 
 						$_SESSION['login'] = $login;
 
@@ -95,6 +106,50 @@
 						# code...
 				break;
 			}
+		}
+		function handleHome($action, $model) 
+		{
+			switch ($action) {
+				case 'detail_product':
+					$id = $_GET['id'];
+					$getProduct= $model->getProduct($id);
+					$getListComment= $model->getListComment($id);
+					include 'view/home/detail_product.php';
+				break;
+
+
+				default:
+					$model = new FrontendModel();
+					$listProduct = $model->listProduct();
+					
+					
+					include 'view/home/contentHome.php';	# code...
+				break;
+			}
+
+		}
+		function handleComment($action, $model) 
+		{
+			switch ($action) {
+				case 'send_comment':
+					$id_product = $_GET['id'];
+					$id_user = $_SESSION['login']['id'];
+					if (isset($_POST['send_comment'])) {
+						$content = $_POST['content'];
+						if($model->sendComment( $id_product, $id_user, $content)===TRUE){
+							header("Location: index.php?controller=home&action=detail_product&id=$id_product");
+						}
+					}
+
+					
+				break;
+
+
+				default:
+					
+				break;
+			}
+
 		}
 		function checkLoginSession() {
 			if (!isset($_SESSION['login']) ) {

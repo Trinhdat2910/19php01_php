@@ -13,7 +13,7 @@
 								 
 		?>
           <div class="col-md-6 col-lg-4 mb-4 mb-lg-4">
-            <a href="#" class="unit-1 text-center">
+            <a href="index.php?controller=home&action=detail_product&id=<?php echo $row['id']?>" class="unit-1 text-center">
               <img src="<?php echo $row['image']?>" alt="Image" class="img-fluid" style="height: 400px;">
               <div class="unit-1-text">
                 <strong class="text-primary mb-2 d-block"><?php echo $row['name']?></strong>

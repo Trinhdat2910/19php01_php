@@ -44,10 +44,10 @@
             <div class="nav-link">
               <div class="user-wrapper">
                 <div class="profile-image">
-                  <img src="webroot/admin/images/faces/face1.jpg" alt="profile image">
+                  <img src="<?php echo $_SESSION['login']['image'] ?>" alt="profile image">
                 </div>
                 <div class="text-wrapper">
-                  <p class="profile-name"> <?php echo $_SESSION['login'] ?></p>
+                  <p class="profile-name"> <?php echo $_SESSION['login']['name'] ?></p>
                   <div>
                     <small class="designation text-muted">Manager</small>
                     <span class="status-indicator online"></span>
@@ -86,6 +86,12 @@
                 </li>
               </ul>
             </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin.php?controller=comment&action=list_comment">
+              <i class="menu-icon mdi mdi-backup-restore"></i>
+              <span class="menu-title">Comment</span>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="index.php?controller=user&action=logout">

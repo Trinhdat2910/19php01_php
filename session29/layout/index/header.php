@@ -119,7 +119,7 @@
                 <?php } else { ?>
                   <li>
                     
-                  <a class="pl-3 pr-3 text-black nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false" style=" width: 200px;"><span class="profile-text">Hi, <?php echo $_SESSION['login']?></span> 
+                  <a class="pl-3 pr-3 text-black nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false" style=" width: 200px;"><span class="profile-text">Hi, <?php echo $_SESSION['login']['name']?></span> 
 
                       
                   </a>
@@ -128,10 +128,12 @@
               <a class="dropdown-item p-0">
                 
               </a>
+              <?php if($_SESSION['login']['role'] == 'admin')
+              {	?>
               <a class="dropdown-item mt-2" href="admin.php">
                 Manage
               </a>
-             
+             	<?php } ?>
               
               <a class="dropdown-item" href="index.php?controller=user&action=logout">
                 Đăng Xuất

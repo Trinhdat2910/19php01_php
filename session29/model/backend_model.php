@@ -65,6 +65,36 @@
 			$updated = date('Y-m-d h:i:s');
 			$sql = "UPDATE product SET name ='$name', description= '$description', product_categories_id ='$category', price='$price',image='$image', updated='$updated' where id ='$id'";
 			return mysqli_query($this->connect(), $sql);
+			
+		}
+		public function listComment() {
+			$sql = "SELECT * FROM comment";
+			$listComment = mysqli_query($this->connect(), $sql);
+			return $listComment;
+		}
+		public function getUserComment($id) {
+			$sql = "SELECT * FROM user WHERE id = '$id'";
+			$result = mysqli_query($this->connect(), $sql);
+			return $result->fetch_assoc();
+		}
+		public function getProductComment($id) {
+			$sql = "SELECT * FROM product WHERE id = '$id'";
+			$result = mysqli_query($this->connect(), $sql);
+			return $result->fetch_assoc();
+		}
+		function showComment($id) {
+			
+			$sql = "UPDATE comment SET status ='1' where id ='$id'";
+			return mysqli_query($this->connect(), $sql);
+		}
+		function hideComment($id) {
+			
+			$sql = "UPDATE comment SET status ='0' where id ='$id'";
+			return mysqli_query($this->connect(), $sql);
+		}
+		public function deleteComment($id) {
+			$sql = "DELETE FROM comment WHERE id ='$id'";
+			return mysqli_query($this->connect(), $sql);
 		}
 	}
 ?>
